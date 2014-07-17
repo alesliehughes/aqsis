@@ -45,6 +45,10 @@
 #ifdef AQSIS_USE_PNG
 #	include "pnginputfile.h"
 #endif
+#ifdef AQSIS_USE_JPEG
+#      include "jpeginputfile.h"
+#endif
+
 #include "zinputfile.h"
 
 namespace Aqsis {
@@ -90,6 +94,15 @@ boost::shared_ptr<IqTexInputFile> openInputFile(
 			case ImageFile_AqsisZfile:
 				file.reset(new CqZInputFile(fileName));
 				break;
+			case ImageFile_Jpg:
+#ifdef AQSIS_USE_JPEG
+				file.reset(new CqJPEGInputFile(fileName));
+#else
+				AQSIS_THROW_XQERROR(XqInvalidFile, EqE_Unimplement,
+						"Cannot open file \"" << fileName << "\""
+						": Aqsis was compiled without JPEG support");
+#endif
+                               break;
 			case ImageFile_Png:
 #				ifdef AQSIS_USE_PNG
 				file.reset(new CqPngInputFile(fileName));

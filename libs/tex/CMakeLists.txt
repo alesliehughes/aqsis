@@ -32,6 +32,12 @@ if(AQSIS_USE_PNG)
   include_directories(${AQSIS_PNG_INCLUDE_DIR} ${AQSIS_ZLIB_INCLUDE_DIR})
 	add_definitions(-DAQSIS_USE_PNG)
 endif()
+if(AQSIS_USE_JPEG)
+    include_directories(${AQSIS_JPEG_INCLUDE_DIR})
+    add_definitions(-DAQSIS_USE_JPEG)
+
+    list(APPEND linklibs ${JPEG_LIBRARY})
+endif()
 list(APPEND linklibs ${AQSIS_ZLIB_LIBRARIES})
 
 aqsis_add_library(aqsis_tex ${tex_srcs} ${tex_hdrs}

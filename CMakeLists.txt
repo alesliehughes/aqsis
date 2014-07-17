@@ -30,6 +30,7 @@ option(AQSIS_USE_QT "Build the aqsis GUI components which rely on the Qt librari
 option(AQSIS_USE_OPENEXR "Build aqsis with support for the OpenEXR image format" ON)
 option(AQSIS_USE_OPENEXR_DLL "Build aqsis using OpenEXR DLLs" OFF)
 option(AQSIS_USE_PNG "Build aqsis with support for reading PNG image files" ON)
+option(AQSIS_USE_JPEG "Build aqsis with support for reading JPEG image files" ON)
 option(AQSIS_USE_EXTERNAL_TINYXML "Try to find and use an external tinyxml library" OFF)
 mark_as_advanced(AQSIS_USE_PDIFF AQSIS_USE_EXTERNAL_TINYXML AQSIS_USE_OPENEXR_DLL)
 
@@ -133,6 +134,15 @@ if(AQSIS_USE_PNG)
 		message("** Cannot find PNG - aqsis will be built without support for the PNG image format")
 		set(AQSIS_USE_PNG OFF)
 	endif()
+endif()
+
+if(AQSIS_USE_JPEG)
+       find_package(JPEG)
+
+       if(NOT JPEG_FOUND)
+               message("** Cannot find JPEG - aqsis will be built without support for the JPEG image format")
+               set(AQSIS_USE_JPEG OFF)
+       endif()
 endif()
 
 ## find tinyxml.  If not found we use the version distributed with the aqsis

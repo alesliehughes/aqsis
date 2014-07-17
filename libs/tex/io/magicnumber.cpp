@@ -95,6 +95,11 @@ EqImageFileType guessFileType(std::istream& inStream)
 	{
 		return ImageFile_Exr;
 	}
+	else if(magicNum.size() >= 10
+			&& std::equal(magicNum.begin(), magicNum.begin()+4, "\xFF\xD8\xFF\xE0\x00\x10JFIF"))
+	{
+		return ImageFile_Jpg;
+	}
 	else if( magicNum.size() >= 4 &&
             magicNum[0] == (char)0x89 &&
             magicNum[1] == 'P' &&

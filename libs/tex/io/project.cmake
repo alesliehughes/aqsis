@@ -18,10 +18,15 @@ endif()
 if(AQSIS_USE_PNG)
 	list(APPEND io_srcs pnginputfile.cpp)
 endif()
+if(AQSIS_USE_JPEG)
+       list(APPEND io_srcs jpeginputfile.cpp)
+endif()
+
 make_absolute(io_srcs ${io_SOURCE_DIR})
 
 set(io_hdrs
 	exrinputfile.h
+	jpeginputfile.h
 	magicnumber.h
 	tiffdirhandle.h
 	tifffile_test.h
